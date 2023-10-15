@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <marquee behavior="scroll" bgcolor="e82a2a" scrollamount="8"><h1>********** Voting Zone **********</h1></marquee
+
+        <div class="png">
+            <img src="https://i.postimg.cc/3r0TsHgz/pngwing-com.png" alt="Logo" height="510">
+        </div>
+
+        <form role="form" onsubmit="signIn(event);" autocomplete="off">
+
+            <div class="detail">
+                <p>
+                    A <strong>Voting Zone</strong> also known as internet voting or e-voting, is a method of casting and submitting votes in an platform through electronic means, typically using the internet. It allows eligible voters to participate in the voting process from the comfort of their own devices, such as computers, smartphones, or tablets, rather than physically visiting a polling station.
+                </p>
+            </div>
+
+            <div class="conta">
+
+                <fieldset class="field">
+                    <legend>
+                        <h3> Sign In </h3>
+                    </legend>
+
+                    <div class="mainContainer">
+                        <!-- Username -->
+                        <label for="email">Username</label>
+                        <input type="email" id="email" placeholder="Enter your E-mail" name="email" />
+
+                        <!-- Password -->
+                        <label for="pwd">Password</label>
+                        <input type="password" id="pwd" placeholder="Enter your Password" name="pwd" />
+
+                        <div class="subcontainer">
+                            <label>
+                                <input type="checkbox" checked="checked" name="remember" />
+                                Remember me
+                            </label>
+                            <p class="forgotpsd">
+                                <a href="/forgot-pswd/forgot.html">Forgot Password?</a>
+                            </p>
+                        </div>
+
+                        <!-- Submit button -->
+                        <button type="submit">Login</button>
+                        <button type="reset">Reset</button>
+
+                        <!-- Sign up link -->
+                        <p class="register">
+                            Not a member? <a href="/signup/signup.html">Register here!</a>
+                        </p>
+                        <br>
+                        <p class="register">
+                            Admin Login <a href="/admin-login/a-login.html">click here!</a>
+                        </p>
+                    </div>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+
+<footer>
+    <div class="footer">
+        <p>&copy; <a href="#">Bigg Boss Voting Zone</a></p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+</footer>
+
+
+    <script>
+        function signIn(e) {
+            e.preventDefault();
+            let email = document.getElementById("email").value,
+                pwd = document.getElementById("pwd").value;
+            let formData = JSON.parse(localStorage.getItem("formData")) || [];
+            localStorage.setItem("email", JSON.stringify(email));
+            console.log(email);
+            let exist =
+                formData.length &&
+                JSON.parse(localStorage.getItem("formData")).some(
+                    (data) =>
+                        data.email.toLowerCase() == email && data.pwd.toLowerCase() == pwd
+                );
+            if (!exist) {
+                alert("Please Enter Registered E-mail Id.");
+            } else {
+                location.href = "/after-login/After-login.html";
+            }
+        }
+    </script>
+</body>
+</html>
