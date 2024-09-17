@@ -1,0 +1,35 @@
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+
+on: [push, pull_request]
+
+jobs:
+  Set-up-Node-and-Test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo "🎉 Job triggered by ${{ github.event_name }} event on Ubuntu server!"
+
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Prevent unauthorized PR merges
+        if: github.event_name == 'pull_request'
+        run: |
+          AUTHOR=${{ github.event.pull_request.user.login }}
+          ACTOR=${{ github.actor }}
+          if [ "$AUTHOR" != "$ACTOR" ]; then
+            echo "🚫 Pull Request cannot be merged without the author's permission."
+            exit 1
+          fi
+          echo "✅ Pull Request can be merged."
+
+      - run: echo "✅ Job completed successfully!"
